@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Report a Theft – TerpBikeTrack</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <a class="brand" href="index.html">TerpBikeTrack</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="info.html">Info</a>
+        <a href="report.html" class="active">Report a Theft</a>
+        <a href="map.html">Campus Map</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Report a Theft</h1>
+    <div class="banner"><strong>Prototype:</strong> reports are saved only in this browser and are not sent to UMPD yet. Please use made-up test data.</div>
+
+    <div id="form-errors" class="error hidden" role="alert"></div>
+
+    <form id="report-form" novalidate>
+      <fieldset>
+        <legend>Required</legend>
+
+        <div class="field">
+          <label>Where was it stolen? <span class="req">*</span></label>
+          <div id="picker-map"></div>
+          <p class="hint" id="location-text">Tap the map to drop a pin where your bike or scooter was parked.</p>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="last-seen">Last seen <span class="req">*</span></label>
+            <input type="datetime-local" id="last-seen" required>
+          </div>
+          <div class="field">
+            <label for="discovered">Discovered missing <span class="req">*</span></label>
+            <input type="datetime-local" id="discovered" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="vehicle-type">Vehicle type <span class="req">*</span></label>
+          <select id="vehicle-type" required>
+            <option value="">Choose one</option>
+            <option value="bike">Bike</option>
+            <option value="e-bike">E-bike</option>
+            <option value="e-scooter">E-scooter</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="reporter-name">Your name <span class="req">*</span></label>
+          <input type="text" id="reporter-name" autocomplete="name" required>
+          <p class="hint">Only shared with UMPD so they can follow up. Never shown on the map.</p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Optional (helps police recover it)</legend>
+
+        <div class="row">
+          <div class="field">
+            <label for="lock-type">Lock type</label>
+            <select id="lock-type">
+              <option value="">Not sure / skip</option>
+              <option value="u-lock">U-lock</option>
+              <option value="cable">Cable lock</option>
+              <option value="chain">Chain lock</option>
+              <option value="folding">Folding lock</option>
+              <option value="none">No lock</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="brand">Brand</label>
+            <input type="text" id="brand" placeholder="e.g., Trek">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="serial">Serial / ID number</label>
+          <input type="text" id="serial">
+        </div>
+
+        <div class="field">
+          <label for="description">Description</label>
+          <textarea id="description" placeholder="Color, stickers, accessories, anything distinctive"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="photo">Photo</label>
+          <input type="file" id="photo" accept="image/*">
+          <p class="hint">Photos aren't saved yet in this prototype.</p>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn">Submit report</button>
+    </form>
+
+    <div id="success" class="success hidden">
+      <h2>Report submitted</h2>
+      <p>Status: <strong>Pending review</strong></p>
+      <p>Once approved, your report will appear on the campus map without your name. (Review isn't built yet, so in this prototype it shows on the map right away, marked "pending.")</p>
+      <p>
+        <a class="btn" href="map.html">View campus map</a>
+        <a class="btn secondary" href="report.html">Submit another</a>
+      </p>
+    </div>
+  </main>
+
+  <footer>ENES256 AI Team Project · University of Maryland · Prototype</footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/report.js"></script>
+</body>
+</html>

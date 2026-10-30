@@ -1,0 +1,191 @@
+:root {
+  --red: #e21833;
+  --red-dark: #b5122a;
+  --gold: #ffd200;
+  --ink: #1d1d1f;
+  --muted: #5f6368;
+  --bg: #f7f7f8;
+  --card: #ffffff;
+  --border: #e2e2e6;
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.5;
+}
+
+a { color: var(--red); }
+
+/* ---------- Header / nav ---------- */
+.site-header {
+  background: var(--red);
+  color: #fff;
+  border-bottom: 4px solid var(--gold);
+}
+.site-header .inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.brand {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.nav { display: flex; flex-wrap: wrap; gap: 4px; }
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+.nav a:hover, .nav a.active { background: rgba(255, 255, 255, 0.18); }
+
+/* ---------- Layout ---------- */
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+h1 { margin-top: 0; line-height: 1.2; }
+.lead { font-size: 1.1rem; color: var(--muted); }
+
+.banner {
+  background: #fff8d6;
+  border: 1px solid #f0d860;
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 0.92rem;
+  margin-bottom: 20px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  text-decoration: none;
+  color: var(--ink);
+  display: block;
+}
+a.card:hover { border-color: var(--red); }
+.card h2 { margin: 0 0 6px; font-size: 1.15rem; color: var(--red); }
+.card p { margin: 0; color: var(--muted); }
+
+section.panel {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+section.panel h2 { margin-top: 0; font-size: 1.2rem; }
+
+.btn {
+  display: inline-block;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:hover { background: var(--red-dark); }
+.btn.secondary {
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--border);
+}
+
+/* ---------- Form ---------- */
+form .field { margin-bottom: 16px; }
+form label { display: block; font-weight: 600; margin-bottom: 4px; }
+.req { color: var(--red); }
+.hint { font-size: 0.85rem; color: var(--muted); margin-top: 2px; }
+input[type="text"], input[type="datetime-local"], select, textarea {
+  width: 100%;
+  padding: 10px;
+  font: inherit;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+textarea { min-height: 80px; resize: vertical; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px 4px;
+  margin: 0 0 16px;
+}
+legend { font-weight: 700; padding: 0 6px; }
+
+.error {
+  background: #fdecee;
+  border: 1px solid #f3b4bd;
+  color: #8a1022;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+}
+.success {
+  background: #e9f7ee;
+  border: 1px solid #a8dcb9;
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.hidden { display: none; }
+
+/* ---------- Maps ---------- */
+#picker-map { height: 280px; border-radius: 8px; border: 1px solid var(--border); }
+#campus-map { height: 70vh; min-height: 420px; border-radius: var(--radius); border: 1px solid var(--border); }
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 12px 0;
+  font-size: 0.92rem;
+}
+.dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.dot.parking { background: #1a73e8; }
+.dot.theft { background: var(--red); }
+#map-status { font-size: 0.9rem; color: var(--muted); }
+
+footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
+  padding: 16px;
+}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Campus Map – TerpBikeTrack</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="inner">
+      <a class="brand" href="index.html">TerpBikeTrack</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="info.html">Info</a>
+        <a href="report.html">Report a Theft</a>
+        <a href="map.html" class="active">Campus Map</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>Campus Map</h1>
+    <p class="lead">Bike parking across UMD and where thefts have been reported. Tap a dot for details.</p>
+
+    <div class="legend">
+      <span><span class="dot parking"></span>Bike parking</span>
+      <span><span class="dot theft"></span>Reported theft</span>
+    </div>
+    <p id="map-status">Loading bike parking…</p>
+
+    <div id="campus-map"></div>
+
+    <p class="hint">Bike parking locations come from OpenStreetMap and may be incomplete. Theft reports are student-submitted; busy areas may show more reports simply because more people park there.</p>
+  </main>
+
+  <footer>ENES256 AI Team Project · University of Maryland · Prototype</footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/map.js"></script>
+</body>
+</html>
