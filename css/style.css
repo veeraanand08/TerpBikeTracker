@@ -23,36 +23,70 @@ body {
 a { color: var(--red); }
 
 /* ---------- Header / nav ---------- */
+/* Two parts, like umd.edu: a thin red bar on top, then a white bar with logo + nav */
 .site-header {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+.topbar {
   background: var(--red);
   color: #fff;
-  border-bottom: 4px solid var(--gold);
+  text-align: center;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
+.topbar-name {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.topbar-sep { margin: 0 10px; }
 .site-header .inner {
-  max-width: 960px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 12px 16px;
+  padding: 14px 16px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 12px;
 }
 .brand {
-  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.brand-logo { flex-shrink: 0; }
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  font-family: Georgia, "Times New Roman", serif;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.brand-small { font-size: 0.85rem; letter-spacing: 0.25em; }
+.brand-big { font-size: 1.9rem; letter-spacing: 0.02em; margin-top: 2px; }
+.nav { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.nav a {
+  color: var(--ink);
   text-decoration: none;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
+  padding: 6px 0;
+  border-bottom: 3px solid transparent;
 }
-.nav { display: flex; flex-wrap: wrap; gap: 4px; }
-.nav a {
-  color: #fff;
-  text-decoration: none;
-  padding: 6px 10px;
-  border-radius: 8px;
-  font-size: 0.95rem;
+.nav a:hover, .nav a.active { border-bottom-color: var(--red); }
+@media (max-width: 600px) {
+  .topbar-name, .topbar-sep { display: none; }
+  .brand-big { font-size: 1.5rem; }
+  .brand-logo { width: 44px; height: 44px; }
+  .nav { gap: 4px 16px; }
+  .nav a { font-size: 0.95rem; }
 }
-.nav a:hover, .nav a.active { background: rgba(255, 255, 255, 0.18); }
 
 /* ---------- Layout ---------- */
 main {

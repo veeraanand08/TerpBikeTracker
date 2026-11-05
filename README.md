@@ -43,10 +43,10 @@ Then open http://localhost:8000
 
 ## Put it online (GitHub Pages, free)
 
-1. Create a new **public** repository on GitHub (e.g., `terpbiketrack`).
-2. Push this folder to it.
+1. Repo: https://github.com/veeraanand08/TerpBikeTracker
+2. Push your changes to `main`.
 3. In the repo: **Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: `main`, folder `/ (root)`** → Save.
-4. After a minute the site is live at `https://<your-username>.github.io/terpbiketrack/`.
+4. After a minute the site is live at `https://veeraanand08.github.io/TerpBikeTracker/`.
 
 Every push to `main` updates the live site.
 

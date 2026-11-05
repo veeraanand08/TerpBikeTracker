@@ -5,11 +5,13 @@
 | | |
 |---|---|
 | **Course** | ENES256 (Fall 2026), University of Maryland — AI Team Project |
-| **GitHub repo** | _Not created yet — add link here once it exists_ |
+| **Team** | Veera, Carl, Ahmad, Adeyanju |
+| **GitHub repo** | https://github.com/veeraanand08/TerpBikeTracker |
+| **Live site** | https://veeraanand08.github.io/TerpBikeTracker/ — _not live yet: turn on GitHub Pages (Settings → Pages → Deploy from branch `main`, root)_ |
 | **Shared portfolio** | Google Drive folder `UMD-Bike-Theft-Project` (link: _add here_) |
 | **Current phase** | Phase 3 — Bare-bones website prototype (home, info, report form, campus map) |
 | **App name** | TerpBikeTrack |
-| **Last updated** | 2026-10-30 |
+| **Last updated** | 2026-11-04 |
 
 ---
 
@@ -152,7 +154,7 @@ We work in small phases. Each phase ends with something we can show and test.
 |---|---|---|---|
 | **0. Research & proposal** | Problem evidence, proposal, AI role trials | Proposal submitted | ✅ Done |
 | **1. System design** | Fields, privacy, review pipeline, monthly report concept | Section 6 of this file agreed by team | ✅ Mostly done (see open questions) |
-| **2. Repo + tech stack** | Choose stack, create GitHub repo, add this file to it | Repo exists, link added above | 🟨 Stack chosen for prototype (section 8); GitHub repo not created yet |
+| **2. Repo + tech stack** | Choose stack, create GitHub repo, add this file to it | Repo exists, link added above | ✅ Stack chosen (section 8); repo created and first commit pushed. GitHub Pages still needs turning on |
 | **3. Reporting form** | Working form with required/optional fields, map pin, time window | Teammates can submit made-up reports in < 60 s | 🟨 Built (`report.html`); not timed yet |
 | **4. Storage** | Database for reports with statuses | Reports persist and can be listed by status | ⬜ (prototype uses browser localStorage only) |
 | **5. AI review** | AI first-pass checks from 6.3 + human review queue | Tested on ~10–30 synthetic reports incl. deliberately bad ones | ⬜ |
@@ -182,15 +184,16 @@ We work in small phases. Each phase ends with something we can show and test.
 | Bike parking data | Snapshot from OpenStreetMap in `data/bike-parking.json` (231 spots, 2026-10-30) | Refresh with `python scripts/update_bike_parking.py` |
 | Report storage | Browser **localStorage** — each person sees only their own test reports | Shared database (planned: Supabase free tier) |
 | AI review | Not built | Server-side call to Claude/ChatGPT API with the name removed |
-| Hosting | Local: `python -m http.server 8000` | GitHub Pages (static) → Vercel if a server is needed |
+| Hosting | Local: `python -m http.server 8000` (from the repo folder, then open http://localhost:8000). Online: GitHub Pages from `main` | Vercel if a server is needed |
 
 **Code layout**
 ```
 index.html  info.html  report.html  map.html
-css/style.css
+css/style.css        site styles (UMD-style header: red top bar + white logo bar)
 js/common.js     shared settings: CAMPUS_BOUNDS, MAX_REPORT_AGE_DAYS (14), storage helpers
 js/report.js     form: map pin picker, validation, save
 js/map.js        campus map: bike parking layer + reported theft layer
+img/logo.svg     app logo (simplified Maryland flag, not the official UMD logo)
 data/bike-parking.json
 scripts/update_bike_parking.py
 README.md        how to run locally + deploy to GitHub Pages
@@ -201,6 +204,13 @@ README.md        how to run locally + deploy to GitHub Pages
 - Optional: lock type, brand, serial, description, photo (photo not saved yet).
 - Blocks: missing required fields, off-campus pin, future times, "last seen" after "discovered," discovered > 14 days ago.
 - Saves with `status: "pending"`. Since review isn't built, pending reports show on the map labeled "pending review (shown for testing)."
+
+**Working on the code (git)**
+- Get the code: `git clone https://github.com/veeraanand08/TerpBikeTracker.git` (teammates need to be added as collaborators under the repo's Settings → Collaborators to push).
+- Before you start: `git pull` so you have everyone's latest work.
+- When you finish: `git add .` → `git commit -m "what you did"` → `git push`. Include your updates to this file in the same commit.
+- Every push to `main` updates the live site (once GitHub Pages is on).
+- Test locally before pushing — `main` is what the public sees.
 
 Constraints to keep in mind:
 - Must be buildable by a small student team in a semester.
@@ -233,7 +243,8 @@ Constraints to keep in mind:
 | 2026-10 | Add a monthly public theft report | Shows students their reports matter; gives campus actionable evidence |
 | 2026-10-30 | Prototype is a plain static website (HTML/CSS/JS + Leaflet), hostable on GitHub Pages | Works with nothing installed, free hosting, fast to iterate |
 | 2026-10-30 | Bike parking comes from a saved OpenStreetMap snapshot, not a live query | Live Overpass API took 30–40 s to load |
-| 2026-10-30 | App name is **TerpBikeTrack** (GitHub repo: `terpbiketrack`) | Team choice; replaces placeholder "TerpTrack" |
+| 2026-10-30 | App name is **TerpBikeTrack** (GitHub repo: `TerpBikeTracker`) | Team choice; replaces placeholder "TerpTrack" |
+| 2026-11-04 | Header styled like umd.edu (red top bar, white bar with logo + nav), but with our own Maryland-flag logo, not the official UMD logo | Looks familiar to UMD students without implying it is an official university site; the UMD logo is trademarked |
 
 ## 11. Current status
 
@@ -244,9 +255,10 @@ Constraints to keep in mind:
 - Sample monthly report with synthetic data.
 - Google Drive portfolio structure.
 - Bare-bones website: home, info, report form and campus map (bike parking + theft pins). Tested locally.
+- GitHub repo created and code pushed: https://github.com/veeraanand08/TerpBikeTracker
 
 **Next up**
-1. Create the GitHub repo, push this folder, turn on GitHub Pages (steps in `README.md`). Add the link to the top of this file.
+1. Turn on GitHub Pages so the live site works, and add teammates as repo collaborators.
 2. Time the report form with teammates against the 60-second goal.
 3. Replace localStorage with a shared database (Supabase) so everyone sees the same reports.
 4. Resolve the AI-review privacy question (strip names before AI review).
@@ -258,6 +270,8 @@ Constraints to keep in mind:
 | 2026-10-29 | Veera / Claude | Created this file from proposal + workshop sessions |
 | 2026-10-30 | Veera / Claude | Built bare-bones static site (home, info, report, map), README, bike parking snapshot + update script; filled in tech stack, phase status, decisions, open questions |
 | 2026-10-30 | Veera / Claude | Renamed app TerpTrack → TerpBikeTrack across site, README and script |
+| 2026-10-30 | Veera / Claude | Added GitHub repo + live site links, team list, git workflow; marked Phase 2 done |
+| 2026-11-04 | Veera / Claude | New UMD-style header on all pages + Maryland-flag logo (`img/logo.svg`); not committed yet, waiting on testing |
 
 ---
 
@@ -277,6 +291,6 @@ Constraints to keep in mind:
 6. Keep this file the single source of truth. If something here conflicts with code or another doc, point it out to the human.
 
 **If you are a teammate:**
-- Paste or attach this file at the start of any AI chat so the AI has full context.
-- Once the GitHub repo exists, this file lives at the repo root — commit your updates to it along with your work.
+- Paste or attach this file at the start of any AI chat so the AI has full context (or give the AI the repo link: https://github.com/veeraanand08/TerpBikeTracker).
+- This file lives at the repo root — `git pull` before you start, and commit your updates to it along with your work.
 - Keep it short and current. Delete things that are no longer true instead of piling on.
