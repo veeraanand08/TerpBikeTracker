@@ -158,7 +158,7 @@ We work in small phases. Each phase ends with something we can show and test.
 | **3. Reporting form** | Working form with required/optional fields, map pin, time window | Teammates can submit made-up reports in < 60 s | 🟨 Built (`report.html`); not timed yet |
 | **4. Storage** | Database for reports with statuses | Reports persist and can be listed by status | ⬜ (prototype uses browser localStorage only) |
 | **5. AI review** | AI first-pass checks from 6.3 + human review queue | Tested on ~10–30 synthetic reports incl. deliberately bad ones | ⬜ |
-| **6. Density map** | Public anonymous map from approved reports | Map shows synthetic reports correctly, no names | 🟨 Basic map built (`map.html`): bike parking + theft pins, no names. No density/heatmap yet |
+| **6. Density map** | Public anonymous map from approved reports | Map shows synthetic reports correctly, no names | 🟨 Map built (`map.html`): bike parking + theft pins, no names, and a Regular map / Heat map switch. Still shows pending reports (for testing) — should show approved only |
 | **7. Police export** | Export (CSV/PDF) with names + status | Export generated from synthetic data | ⬜ |
 | **8. Usability testing** | Test with ≥ 5 student riders | Timing + trust/usability feedback recorded | ⬜ (Progress Report 1) |
 | **9. Monthly report generator** | Auto-draft monthly report from confirmed reports | Matches safeguards in 6.5 | ⬜ Later |
@@ -180,7 +180,7 @@ We work in small phases. Each phase ends with something we can show and test.
 | Part | Now | Planned later |
 |---|---|---|
 | Pages | `index.html`, `info.html`, `report.html`, `map.html` | Same pages, possibly moved to a framework (e.g., Next.js) if needed |
-| Map | Leaflet 1.9.4 + OpenStreetMap tiles (CDN) | Add heatmap/density layer |
+| Map | Leaflet 1.9.4 + OpenStreetMap tiles + leaflet.heat 0.2.0 for the heat map (all CDN) | Time-of-day filter on the map |
 | Bike parking data | Snapshot from OpenStreetMap in `data/bike-parking.json` (231 spots, 2026-10-30) | Refresh with `python scripts/update_bike_parking.py` |
 | Report storage | Browser **localStorage** — each person sees only their own test reports | Shared database (planned: Supabase free tier) |
 | AI review | Not built | Server-side call to Claude/ChatGPT API with the name removed |
@@ -192,7 +192,7 @@ index.html  info.html  report.html  map.html
 css/style.css        site styles (UMD-style header: red top bar + white logo bar)
 js/common.js     shared settings: CAMPUS_BOUNDS, MAX_REPORT_AGE_DAYS (14), storage helpers
 js/report.js     form: map pin picker, validation, save
-js/map.js        campus map: bike parking layer + reported theft layer
+js/map.js        campus map: bike parking layer, theft pins, heat map + view switch
 img/logo.svg     app logo (simplified Maryland flag, not the official UMD logo)
 data/bike-parking.json
 scripts/update_bike_parking.py
@@ -245,6 +245,7 @@ Constraints to keep in mind:
 | 2026-10-30 | Bike parking comes from a saved OpenStreetMap snapshot, not a live query | Live Overpass API took 30–40 s to load |
 | 2026-10-30 | App name is **TerpBikeTrack** (GitHub repo: `TerpBikeTracker`) | Team choice; replaces placeholder "TerpTrack" |
 | 2026-11-04 | Header styled like umd.edu (red top bar, white bar with logo + nav), but with our own Maryland-flag logo, not the official UMD logo | Looks familiar to UMD students without implying it is an official university site; the UMD logo is trademarked |
+| 2026-11-04 | Heat map: 1 report shows faint, 3+ overlapping reports show full red | Matches the "3 reports = hotspot" rule so one report doesn't look like a hotspot |
 
 ## 11. Current status
 
@@ -255,6 +256,7 @@ Constraints to keep in mind:
 - Sample monthly report with synthetic data.
 - Google Drive portfolio structure.
 - Bare-bones website: home, info, report form and campus map (bike parking + theft pins). Tested locally.
+- Heat map view on the campus map (switch between Regular map and Heat map). Tested with synthetic reports.
 - GitHub repo created and code pushed: https://github.com/veeraanand08/TerpBikeTracker
 
 **Next up**
@@ -271,7 +273,8 @@ Constraints to keep in mind:
 | 2026-10-30 | Veera / Claude | Built bare-bones static site (home, info, report, map), README, bike parking snapshot + update script; filled in tech stack, phase status, decisions, open questions |
 | 2026-10-30 | Veera / Claude | Renamed app TerpTrack → TerpBikeTrack across site, README and script |
 | 2026-10-30 | Veera / Claude | Added GitHub repo + live site links, team list, git workflow; marked Phase 2 done |
-| 2026-11-04 | Veera / Claude | New UMD-style header on all pages + Maryland-flag logo (`img/logo.svg`); not committed yet, waiting on testing |
+| 2026-11-04 | Veera / Claude | New UMD-style header on all pages + Maryland-flag logo (`img/logo.svg`) |
+| 2026-11-04 | Veera / Claude | Added heat map view + Regular/Heat map switch to the campus map; not committed yet |
 
 ---
 

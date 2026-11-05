@@ -215,6 +215,37 @@ legend { font-weight: 700; padding: 0 6px; }
 }
 .dot.parking { background: #1a73e8; }
 .dot.theft { background: var(--red); }
+.legend.hidden { display: none; }
+
+/* Regular map / Heat map switch */
+.view-toggle {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+.view-toggle button {
+  border: none;
+  background: none;
+  padding: 10px 18px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+}
+.view-toggle button + button { border-left: 1px solid var(--border); }
+.view-toggle button:hover { background: #f1f1f3; }
+.view-toggle button.active { background: var(--red); color: #fff; }
+
+/* Colors match leaflet.heat's default gradient */
+.heat-scale { display: inline-flex; align-items: center; gap: 8px; }
+.heat-bar {
+  width: 120px;
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(to right, blue, cyan, lime, yellow, red);
+}
 #map-status { font-size: 0.9rem; color: var(--muted); }
 
 footer {

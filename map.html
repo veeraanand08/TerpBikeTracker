@@ -31,11 +31,20 @@
 
   <main>
     <h1>Campus Map</h1>
-    <p class="lead">Bike parking across UMD and where thefts have been reported. Tap a dot for details.</p>
+    <p class="lead">Bike parking across UMD and where thefts have been reported. Tap a dot for details, or switch to the heat map to see theft hotspots.</p>
 
-    <div class="legend">
+    <div class="view-toggle" role="group" aria-label="Map view">
+      <button type="button" data-view="pins" class="active" aria-pressed="true">Regular map</button>
+      <button type="button" data-view="heat" aria-pressed="false">Heat map</button>
+    </div>
+
+    <div class="legend" id="legend-pins">
       <span><span class="dot parking"></span>Bike parking</span>
       <span><span class="dot theft"></span>Reported theft</span>
+    </div>
+    <div class="legend hidden" id="legend-heat">
+      <span><span class="dot parking"></span>Bike parking</span>
+      <span class="heat-scale"><span>Fewer thefts</span><span class="heat-bar"></span><span>More thefts</span></span>
     </div>
     <p id="map-status">Loading bike parking…</p>
 
@@ -47,6 +56,7 @@
   <footer>ENES256 AI Team Project · University of Maryland · Prototype</footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
   <script src="js/common.js"></script>
   <script src="js/map.js"></script>
 </body>

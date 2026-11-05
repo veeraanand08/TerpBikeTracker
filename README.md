@@ -17,7 +17,7 @@ ENES256 AI Team Project. A website where UMD students can report bike and scoote
 
 Plain HTML, CSS and JavaScript — no build step, no installs.
 
-- **Map:** [Leaflet](https://leafletjs.com/) with OpenStreetMap tiles (loaded from a CDN)
+- **Map:** [Leaflet](https://leafletjs.com/) with OpenStreetMap tiles and [leaflet.heat](https://github.com/Leaflet/Leaflet.heat) for the heat map (loaded from a CDN)
 - **Bike parking:** saved snapshot in `data/bike-parking.json`, from OpenStreetMap. Refresh with `python scripts/update_bike_parking.py`
 - **Reports:** saved in the browser's localStorage **for now only** — each person only sees their own test reports. To be replaced with a real database.
 
