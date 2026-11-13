@@ -6,27 +6,74 @@
   <title>Report a Theft – TerpBikeTrack</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Full-screen overlay that hosts the crash animation iframe */
+    #animation-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: #020617;
+      display: none;
+    }
+    #animation-overlay.active { display: block; }
+    #animation-overlay iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+    #animation-skip {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 10000;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font: 600 13px system-ui, sans-serif;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Top utility bar -->
+  <div class="topbar">
+    <div class="topbar__left">TERPBIKETRACK <span class="dot">/</span> A UMD STUDENT PROJECT</div>
+    <div class="topbar__right"><span class="pulse"></span> PROTOTYPE IN DEVELOPMENT</div>
+  </div>
+
+  <!-- Header / Nav -->
   <header class="site-header">
-    <div class="topbar">
-      <span class="topbar-name">TerpBikeTrack</span><span class="topbar-sep">|</span>A UMD Student Project
-    </div>
-    <div class="inner">
-      <a class="brand" href="index.html">
-        <img class="brand-logo" src="img/logo.svg" alt="" width="52" height="52">
-        <span class="brand-text">
-          <span class="brand-small">UMD Bike &amp; Scooter</span>
-          <span class="brand-big">TerpBikeTrack</span>
-        </span>
-      </a>
-      <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="info.html">Info</a>
-        <a href="report.html" class="active">Report a Theft</a>
-        <a href="map.html">Campus Map</a>
-      </nav>
-    </div>
+    <a href="index.html" class="brand">
+      <div class="brand__mark">
+        <svg viewBox="0 0 48 48" width="34" height="34" aria-hidden="true">
+          <rect width="48" height="24" fill="#E21833"/>
+          <rect y="24" width="48" height="24" fill="#FFD200"/>
+          <rect width="24" height="24" fill="#000"/>
+          <rect x="24" y="24" width="24" height="24" fill="#000"/>
+          <circle cx="12" cy="12" r="3" fill="#fff"/>
+          <circle cx="36" cy="36" r="3" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="brand__text">
+        <span class="brand__kicker">UMD Bike &amp; Scooter</span>
+        <span class="brand__name">TerpBike<em>Track</em></span>
+      </div>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html" class="nav__link">Home</a>
+      <a href="info.html" class="nav__link">Info</a>
+      <a href="report.html" class="nav__btn">Report a Theft</a>
+      <a href="map.html" class="nav__link">Campus Map</a>
+    </nav>
+
+    <button class="nav__toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </header>
 
   <main>
@@ -128,8 +175,73 @@
 
   <footer>ENES256 AI Team Project · University of Maryland · Prototype</footer>
 
+  <!-- Full-screen crash animation overlay, shown right after a successful submit -->
+  <div id="animation-overlay">
+    <button id="animation-skip" type="button">Skip ✕</button>
+    <iframe id="animation-frame" title="Report submitted animation"></iframe>
+  </div>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/common.js"></script>
   <script src="js/report.js"></script>
+  <script>
+    // Show the crash animation overlay only after report.js actually finishes
+    // saving a valid report (never on plain page load).
+    (function () {
+      const form = document.getElementById('report-form');
+      const successPanel = document.getElementById('success');
+      const overlay = document.getElementById('animation-overlay');
+      const frame = document.getElementById('animation-frame');
+      const skipBtn = document.getElementById('animation-skip');
+
+      if (!form || !successPanel || !overlay || !frame) return;
+
+      // Make 100% sure the overlay starts hidden, no matter what.
+      overlay.classList.remove('active');
+
+      function showAnimation() {
+        overlay.classList.add('active');
+        frame.src = 'crash-animation.html?t=' + Date.now();
+      }
+
+      function hideAnimation() {
+        overlay.classList.remove('active');
+        frame.src = 'about:blank';
+      }
+
+      // Trigger on the capturing phase of submit, AFTER report.js's own
+      // listener (added first) has already run validation + saved the report.
+      // We only show the animation if report.js reveals #success.
+      form.addEventListener('submit', () => {
+        // Defer so report.js's own submit handler runs first.
+        setTimeout(() => {
+          if (!successPanel.classList.contains('hidden')) {
+            showAnimation();
+          }
+        }, 0);
+      });
+
+      // Escape hatches so the overlay can never trap the page:
+      // skip button, Escape key, or a safety timeout.
+      skipBtn.addEventListener('click', () => {
+        hideAnimation();
+        successPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+          hideAnimation();
+        }
+      });
+
+      // The animation iframe posts this message when the user clicks
+      // "Continue" or after its own auto-continue timeout.
+      window.addEventListener('message', (event) => {
+        if (event.data === 'terpbike-report-animation-done') {
+          hideAnimation();
+          successPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
